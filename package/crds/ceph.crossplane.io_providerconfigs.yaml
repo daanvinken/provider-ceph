@@ -109,7 +109,7 @@ spec:
                 description: HostBucket url specified in s3cfg.
                 type: string
               useHttps:
-                description: UseHTTPS ceph cluster configuration.
+                description: UseHTTPS radosgw cluster configuration.
                 type: boolean
             required:
             - credentials

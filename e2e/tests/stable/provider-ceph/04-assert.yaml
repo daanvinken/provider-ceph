@@ -1,10 +1,10 @@
-apiVersion: provider-ceph.ceph.crossplane.io/v1alpha1
+apiVersion: s3.radosgw.crossplane.io/v1alpha1
 kind: Bucket
 metadata:
   name: bucket-for-localstack-b
   finalizers:
   - "finalizer.managedresource.crossplane.io"
-  - "bucket-in-use.provider-ceph.crossplane.io"
+  - "bucket-in-use.s3.crossplane.io"
 status:
   atProvider:
     backendStatuses:

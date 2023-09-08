@@ -7,7 +7,7 @@ import (
 	"github.com/linode/provider-ceph/apis/v1alpha1"
 )
 
-// s3Backends is a map of S3 backend name (eg ceph cluster name) to backend.
+// s3Backends is a map of S3 backend name (eg radosgw cluster name) to backend.
 type s3Backends map[string]*backend
 
 // BackendStore stores the active s3 backends.

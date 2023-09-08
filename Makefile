@@ -164,7 +164,7 @@ ceph-kuttl: $(KIND) $(KUTTL) $(HELM3) cluster-clean
 
 # Spin up a Kind cluster and localstack and install Crossplane CRDs (not
 # containerised Crossplane componenets).
-# Install local provider-ceph CRDs.
+# Install local s3 CRDs.
 # Create ProviderConfig CR representing localstack.
 dev-cluster: $(KUBECTL) cluster
 	@$(INFO) Installing CRDs and ProviderConfig
@@ -173,7 +173,7 @@ dev-cluster: $(KUBECTL) cluster
 	@$(KUBECTL) apply -R -f e2e/localstack/localstack-provider-cfg.yaml
 	@$(OK) Installing CRDs and ProviderConfig
 
-# Best for development - locally run provider-ceph controller.
+# Best for development - locally run s3 controller.
 # Removes need for Crossplane install via Helm.
 dev: dev-cluster run
 
@@ -204,7 +204,7 @@ $(GOMPLATE):
 
 export GOMPLATE
 
-# This target prepares repo for your provider by replacing all "ceph"
+# This target prepares repo for your provider by replacing all "radosgw"
 # occurrences with your provider name.
 # This target can only be run once, if you want to rerun for some reason,
 # consider stashing/resetting your git state.

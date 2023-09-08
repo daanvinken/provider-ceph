@@ -33,14 +33,14 @@ nodes:
 EOF
 	# write kuttl config file for version
 	if [ ! -d "./e2e/kuttl/ceph" ]; then
-		mkdir -p ./e2e/kuttl/ceph
+		mkdir -p ./e2e/kuttl/radosgw
     fi
 
     if [ ! -d "./e2e/kuttl/stable" ]; then
 		mkdir -p ./e2e/kuttl/stable
 	fi
 	file=./e2e/kuttl/stable/${REPO}-${major}.yaml
-    file_ceph=./e2e/kuttl/ceph/${REPO}-${major}.yaml
+    file_ceph=./e2e/kuttl/radosgw/${REPO}-${major}.yaml
 
 	# tests use 'stable' testDir in CI
 	cat <<EOF > "${file}"
@@ -54,7 +54,7 @@ startKIND: false
 timeout: 90
 EOF
 
-	# tests use 'ceph' testDir for manual tests
+	# tests use 'radosgw' testDir for manual tests
 	cat <<EOF > "${file_ceph}"
 ${HEADER}
 apiVersion: kuttl.dev/v1beta1

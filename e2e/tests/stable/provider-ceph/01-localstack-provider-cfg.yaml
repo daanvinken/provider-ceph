@@ -8,7 +8,7 @@ data:
   access_key: "RHVtbXk="
   secret_key: "RHVtbXk="
 ---
-apiVersion: ceph.crossplane.io/v1alpha1
+apiVersion: radosgw.crossplane.io/v1alpha1
 kind: ProviderConfig
 metadata:
   name: localstack-a
@@ -22,7 +22,7 @@ spec:
       name: localstack
       key: credentials
 ---
-apiVersion: ceph.crossplane.io/v1alpha1
+apiVersion: radosgw.crossplane.io/v1alpha1
 kind: ProviderConfig
 metadata:
   name: localstack-b
@@ -36,7 +36,7 @@ spec:
       name: localstack
       key: credentials
 ---
-apiVersion: ceph.crossplane.io/v1alpha1
+apiVersion: radosgw.crossplane.io/v1alpha1
 kind: ProviderConfig
 metadata:
   name: localstack-c

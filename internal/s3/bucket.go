@@ -7,7 +7,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	s3types "github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
-	"github.com/linode/provider-ceph/apis/provider-ceph/v1alpha1"
+	"github.com/linode/provider-ceph/apis/s3/v1alpha1"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 )

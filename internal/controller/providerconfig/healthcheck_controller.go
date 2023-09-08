@@ -39,7 +39,7 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/providerconfig"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 
-	"github.com/linode/provider-ceph/apis/provider-ceph/v1alpha1"
+	"github.com/linode/provider-ceph/apis/s3/v1alpha1"
 	apisv1alpha1 "github.com/linode/provider-ceph/apis/v1alpha1"
 	"github.com/linode/provider-ceph/internal/backendstore"
 	s3internal "github.com/linode/provider-ceph/internal/s3"
@@ -55,7 +55,7 @@ const (
 	// retryInterval is the interval used when checking
 	// for an existing bucket.
 	retryInterval        = 5
-	healthCheckFinalizer = "health-check.provider-ceph.crossplane.io"
+	healthCheckFinalizer = "health-check.s3.crossplane.io"
 )
 
 func newHealthCheckReconciler(k client.Client, o controller.Options, s *backendstore.BackendStore) *HealthCheckReconciler {

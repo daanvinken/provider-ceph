@@ -1,13 +1,13 @@
-apiVersion: provider-ceph.ceph.crossplane.io/v1alpha1
+apiVersion: s3.radosgw.crossplane.io/v1alpha1
 kind: Bucket
 metadata:
   name: test-bucket
 spec:
   providers:
-  - ceph-cluster
+  - radosgw-cluster
   forProvider: {} 
 ---
-apiVersion: provider-ceph.ceph.crossplane.io/v1alpha1
+apiVersion: s3.radosgw.crossplane.io/v1alpha1
 kind: Bucket
 metadata:
   name: test-bucket-all

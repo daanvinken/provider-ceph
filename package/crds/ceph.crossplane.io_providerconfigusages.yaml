@@ -11,7 +11,7 @@ spec:
     categories:
     - crossplane
     - provider
-    - ceph
+    - radosgw
     kind: ProviderConfigUsage
     listKind: ProviderConfigUsageList
     plural: providerconfigusages

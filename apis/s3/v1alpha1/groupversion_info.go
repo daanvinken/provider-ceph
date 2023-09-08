@@ -16,7 +16,7 @@ limitations under the License.
 
 // Package v1alpha1 contains the v1alpha1 group Sample resources of the Ceph provider.
 // +kubebuilder:object:generate=true
-// +groupName=provider-ceph.ceph.crossplane.io
+// +groupName=s3.ceph.crossplane.io
 // +versionName=v1alpha1
 package v1alpha1
 
@@ -27,7 +27,7 @@ import (
 
 // Package type metadata.
 const (
-	Group   = "provider-ceph.ceph.crossplane.io"
+	Group   = "s3.ceph.crossplane.io"
 	Version = "v1alpha1"
 )
 

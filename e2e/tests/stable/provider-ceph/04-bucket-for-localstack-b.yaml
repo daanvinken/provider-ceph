@@ -1,4 +1,4 @@
-apiVersion: provider-ceph.ceph.crossplane.io/v1alpha1
+apiVersion: s3.radosgw.crossplane.io/v1alpha1
 kind: Bucket
 metadata:
   name: bucket-for-localstack-b

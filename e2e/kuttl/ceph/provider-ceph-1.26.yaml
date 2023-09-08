@@ -2,7 +2,7 @@
 apiVersion: kuttl.dev/v1beta1
 kind: TestSuite
 testDirs:
-- ./e2e/tests/ceph
+- ./e2e/tests/radosgw
 kindConfig: e2e/kind/kind-config-1.26.yaml
 startKIND: false
 timeout: 90

@@ -1,9 +1,9 @@
-apiVersion: provider-ceph.ceph.crossplane.io/v1alpha1
+apiVersion: s3.radosgw.crossplane.io/v1alpha1
 kind: Bucket
 metadata:
   name: ceph-cluster-health-check
 ---
-apiVersion: ceph.crossplane.io/v1alpha1
+apiVersion: radosgw.crossplane.io/v1alpha1
 kind: ProviderConfig
 metadata:
   name: ceph-cluster

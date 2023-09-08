@@ -100,7 +100,7 @@ type BucketSpec struct {
 	ForProvider BucketParameters `json:"forProvider"`
 	// Disabled allows the user to create a Bucket CR without creating
 	// buckets on any S3 backends. If an existing bucket CR is updated
-	// with Disabled=true, then provider-ceph attempts to remove any
+	// with Disabled=true, then s3 attempts to remove any
 	// existing buckets from the existing S3 backends and the Bucket
 	// CR's status is updated accordingly.
 	// This flag overrides 'Providers'.
@@ -122,7 +122,7 @@ type BucketStatus struct {
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,ceph}
+// +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,radosgw}
 type Bucket struct {
 	Spec              BucketSpec   `json:"spec"`
 	Status            BucketStatus `json:"status,omitempty"`

@@ -44,7 +44,7 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 
 	"github.com/allegro/bigcache/v3"
-	"github.com/linode/provider-ceph/apis/provider-ceph/v1alpha1"
+	"github.com/linode/provider-ceph/apis/s3/v1alpha1"
 	apisv1alpha1 "github.com/linode/provider-ceph/apis/v1alpha1"
 	"github.com/linode/provider-ceph/internal/backendstore"
 	"github.com/linode/provider-ceph/internal/features"
@@ -75,7 +75,7 @@ const (
 	errFailedToCreateClient     = "failed to create s3 client"
 	errBucketCreationInProgress = "bucket creation in progress"
 
-	inUseFinalizer = "bucket-in-use.provider-ceph.crossplane.io"
+	inUseFinalizer = "bucket-in-use.s3.crossplane.io"
 )
 
 var bucketCache *bigcache.BigCache

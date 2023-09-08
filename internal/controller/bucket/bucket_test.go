@@ -26,7 +26,7 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/crossplane/crossplane-runtime/pkg/test"
 	"github.com/google/go-cmp/cmp"
-	"github.com/linode/provider-ceph/apis/provider-ceph/v1alpha1"
+	"github.com/linode/provider-ceph/apis/s3/v1alpha1"
 	apisv1alpha1 "github.com/linode/provider-ceph/apis/v1alpha1"
 	"github.com/linode/provider-ceph/internal/backendstore"
 	"github.com/pkg/errors"

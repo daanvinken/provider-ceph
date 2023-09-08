@@ -3,7 +3,7 @@ package bucket
 import (
 	"sync"
 
-	"github.com/linode/provider-ceph/apis/provider-ceph/v1alpha1"
+	"github.com/linode/provider-ceph/apis/s3/v1alpha1"
 )
 
 type bucketBackends struct {

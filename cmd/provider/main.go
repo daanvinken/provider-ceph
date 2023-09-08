@@ -131,7 +131,7 @@ func main() {
 	ctrl.SetLogger(zl)
 	klog.SetLogger(zl)
 
-	log := logging.NewLogrLogger(zl.WithName("provider-ceph"))
+	log := logging.NewLogrLogger(zl.WithName("s3"))
 
 	cfg, err := ctrl.GetConfig()
 	kingpin.FatalIfError(err, "Cannot get API server rest config")
@@ -148,7 +148,7 @@ func main() {
 		SyncPeriod: syncInterval,
 
 		LeaderElection:             *leaderElection,
-		LeaderElectionID:           "crossplane-leader-election-provider-ceph-ibyaiby",
+		LeaderElectionID:           "crossplane-leader-election-s3-ibyaiby",
 		LeaderElectionNamespace:    *namespace,
 		LeaderElectionResourceLock: resourcelock.LeasesResourceLock,
 		RenewDeadline:              leaderRenew,

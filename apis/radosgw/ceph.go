@@ -14,21 +14,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package utils
-
-import "github.com/linode/provider-ceph/apis/s3/v1alpha1"
-
-const (
-	HealthCheckLabelKey = "s3.crossplane.io"
-	HealthCheckLabelVal = "health-check-bucket"
-)
-
-func IsHealthCheckBucket(bucket *v1alpha1.Bucket) bool {
-	if val, ok := bucket.GetLabels()[HealthCheckLabelKey]; ok {
-		if val == HealthCheckLabelVal {
-			return true
-		}
-	}
-
-	return false
-}
+// Package radosgw contains group radosgw API versions
+package radosgw

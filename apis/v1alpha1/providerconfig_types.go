@@ -36,7 +36,7 @@ type ProviderConfigSpec struct {
 	// HostBucket url specified in s3cfg.
 	HostBucket string `json:"hostBucket,omitempty"`
 
-	// UseHTTPS ceph cluster configuration.
+	// UseHTTPS radosgw cluster configuration.
 	UseHTTPS bool `json:"useHttps,omitempty"`
 
 	DisableHealthCheck bool `json:"disableHealthCheck,omitempty"`

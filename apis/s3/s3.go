@@ -14,5 +14,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package provider-ceph contains group provider-ceph API versions
-package providerceph
+// Package s3 contains group s3 API versions
+package s3
