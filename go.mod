@@ -8,6 +8,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/config v1.18.34
 	github.com/aws/aws-sdk-go-v2/credentials v1.13.33
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.38.3
+	github.com/ceph/go-ceph v0.23.0
 	github.com/crossplane/crossplane-runtime v1.13.0
 	github.com/crossplane/crossplane-tools v0.0.0-20230714144037-2684f4bc7638
 	github.com/google/go-cmp v0.5.9
@@ -27,6 +28,7 @@ require (
 	dario.cat/mergo v1.0.0 // indirect
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20211218093645-b94a6e3cc137 // indirect
+	github.com/aws/aws-sdk-go v1.44.314 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.4.12 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.13.9 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.39 // indirect
@@ -78,6 +80,7 @@ require (
 	github.com/hashicorp/vault/api v1.9.2 // indirect
 	github.com/imdario/mergo v0.3.16 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
+	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect

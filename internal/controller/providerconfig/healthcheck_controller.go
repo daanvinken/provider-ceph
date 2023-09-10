@@ -18,6 +18,7 @@ package providerconfig
 
 import (
 	"context"
+	"github.com/linode/provider-ceph/internal/s3/s3backendstore"
 	"strings"
 	"time"
 
@@ -41,7 +42,6 @@ import (
 
 	"github.com/linode/provider-ceph/apis/s3/v1alpha1"
 	apisv1alpha1 "github.com/linode/provider-ceph/apis/v1alpha1"
-	"github.com/linode/provider-ceph/internal/backendstore"
 	s3internal "github.com/linode/provider-ceph/internal/s3"
 	"github.com/linode/provider-ceph/pkg/utils"
 )
@@ -58,7 +58,7 @@ const (
 	healthCheckFinalizer = "health-check.s3.crossplane.io"
 )
 
-func newHealthCheckReconciler(k client.Client, o controller.Options, s *backendstore.BackendStore) *HealthCheckReconciler {
+func newHealthCheckReconciler(k client.Client, o controller.Options, s *s3backendstore.BackendStore) *HealthCheckReconciler {
 	return &HealthCheckReconciler{
 		onceMap:      newOnceMap(),
 		kubeClient:   k,
@@ -70,7 +70,7 @@ func newHealthCheckReconciler(k client.Client, o controller.Options, s *backends
 type HealthCheckReconciler struct {
 	onceMap      *onceMap
 	kubeClient   client.Client
-	backendStore *backendstore.BackendStore
+	backendStore *s3backendstore.BackendStore
 	log          logging.Logger
 }
 

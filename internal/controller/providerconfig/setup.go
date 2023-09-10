@@ -7,12 +7,13 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/providerconfig"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	apisv1alpha1 "github.com/linode/provider-ceph/apis/v1alpha1"
-	"github.com/linode/provider-ceph/internal/backendstore"
+	"github.com/linode/provider-ceph/internal/radosgw/radosgwbackendstore"
+	"github.com/linode/provider-ceph/internal/s3/s3backendstore"
 	ctrl "sigs.k8s.io/controller-runtime"
 )
 
 // Setup adds controllers to reconcile the backend store and backend health.
-func Setup(mgr ctrl.Manager, o controller.Options, s *backendstore.BackendStore) error {
+func Setup(mgr ctrl.Manager, o controller.Options, s *s3backendstore.BackendStore, rgw *radosgwbackendstore.BackendStore) error {
 	name := providerconfig.ControllerName(apisv1alpha1.ProviderConfigGroupKind)
 
 	of := resource.ProviderConfigKinds{
@@ -21,8 +22,12 @@ func Setup(mgr ctrl.Manager, o controller.Options, s *backendstore.BackendStore)
 	}
 
 	// Add an 'internal' controller to the manager for the ProviderConfig.
-	// This will be used to reconcile the backend store.
-	if err := newBackendStoreReconciler(mgr.GetClient(), o, s).setupWithManager(mgr); err != nil {
+	// This will be used to reconcile the backend store for s3.
+	if err := newS3BackendStoreReconciler(mgr.GetClient(), o, s).setupWithManager(mgr); err != nil {
+		return err
+	}
+
+	if err := newRadosgwBackendStoreReconciler(mgr.GetClient(), o, rgw).setupWithManager(mgr); err != nil {
 		return err
 	}
 

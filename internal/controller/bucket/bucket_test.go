@@ -18,6 +18,7 @@ package bucket
 
 import (
 	"context"
+	"github.com/linode/provider-ceph/internal/s3/s3backendstore"
 	"testing"
 
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
@@ -28,7 +29,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/linode/provider-ceph/apis/s3/v1alpha1"
 	apisv1alpha1 "github.com/linode/provider-ceph/apis/v1alpha1"
-	"github.com/linode/provider-ceph/internal/backendstore"
 	"github.com/pkg/errors"
 	"k8s.io/client-go/kubernetes/scheme"
 	"sigs.k8s.io/controller-runtime/pkg/client/fake"
@@ -50,7 +50,7 @@ func TestObserve(t *testing.T) {
 	t.Parallel()
 
 	type fields struct {
-		backendStore *backendstore.BackendStore
+		backendStore *s3backendstore.BackendStore
 	}
 
 	type args struct {
@@ -70,7 +70,7 @@ func TestObserve(t *testing.T) {
 	}{
 		"Invalid managed resource": {
 			fields: fields{
-				backendStore: backendstore.NewBackendStore(),
+				backendStore: s3backendstore.NewBackendStore(),
 			},
 			args: args{
 				mg: unexpectedItem,
@@ -81,7 +81,7 @@ func TestObserve(t *testing.T) {
 		},
 		"S3 backend reference does not exist": {
 			fields: fields{
-				backendStore: backendstore.NewBackendStore(),
+				backendStore: s3backendstore.NewBackendStore(),
 			},
 			args: args{
 				mg: &v1alpha1.Bucket{
@@ -100,7 +100,7 @@ func TestObserve(t *testing.T) {
 		},
 		"S3 backend not referenced and none exist": {
 			fields: fields{
-				backendStore: backendstore.NewBackendStore(),
+				backendStore: s3backendstore.NewBackendStore(),
 			},
 			args: args{
 				mg: &v1alpha1.Bucket{},
@@ -131,7 +131,7 @@ func TestCreate(t *testing.T) {
 	t.Parallel()
 
 	type fields struct {
-		backendStore *backendstore.BackendStore
+		backendStore *s3backendstore.BackendStore
 	}
 
 	type args struct {
@@ -151,7 +151,7 @@ func TestCreate(t *testing.T) {
 	}{
 		"Invalid managed resource": {
 			fields: fields{
-				backendStore: backendstore.NewBackendStore(),
+				backendStore: s3backendstore.NewBackendStore(),
 			},
 			args: args{
 				mg: unexpectedItem,
@@ -162,7 +162,7 @@ func TestCreate(t *testing.T) {
 		},
 		"S3 backends missing": {
 			fields: fields{
-				backendStore: backendstore.NewBackendStore(),
+				backendStore: s3backendstore.NewBackendStore(),
 			},
 			args: args{
 				mg: &v1alpha1.Bucket{},
@@ -173,8 +173,8 @@ func TestCreate(t *testing.T) {
 		},
 		"S3 backend reference does not exist": {
 			fields: fields{
-				backendStore: func() *backendstore.BackendStore {
-					bs := backendstore.NewBackendStore()
+				backendStore: func() *s3backendstore.BackendStore {
+					bs := s3backendstore.NewBackendStore()
 					bs.AddOrUpdateBackend("s3-backend-0", nil, false, apisv1alpha1.HealthStatusUnknown)
 
 					return bs
@@ -193,8 +193,8 @@ func TestCreate(t *testing.T) {
 		},
 		"S3 backend reference inactive": {
 			fields: fields{
-				backendStore: func() *backendstore.BackendStore {
-					bs := backendstore.NewBackendStore()
+				backendStore: func() *s3backendstore.BackendStore {
+					bs := s3backendstore.NewBackendStore()
 					bs.AddOrUpdateBackend("s3-backend-0", nil, true, apisv1alpha1.HealthStatusUnknown)
 					bs.AddOrUpdateBackend("s3-backend-1", nil, false, apisv1alpha1.HealthStatusUnknown)
 
@@ -214,8 +214,8 @@ func TestCreate(t *testing.T) {
 		},
 		"S3 backend reference missing": {
 			fields: fields{
-				backendStore: func() *backendstore.BackendStore {
-					bs := backendstore.NewBackendStore()
+				backendStore: func() *s3backendstore.BackendStore {
+					bs := s3backendstore.NewBackendStore()
 					bs.AddOrUpdateBackend("s3-backend-0", nil, true, apisv1alpha1.HealthStatusUnknown)
 
 					return bs
@@ -234,7 +234,7 @@ func TestCreate(t *testing.T) {
 		},
 		"S3 backend not referenced and none exist": {
 			fields: fields{
-				backendStore: backendstore.NewBackendStore(),
+				backendStore: s3backendstore.NewBackendStore(),
 			},
 			args: args{
 				mg: &v1alpha1.Bucket{},
@@ -278,7 +278,7 @@ func TestDelete(t *testing.T) {
 	t.Parallel()
 
 	type fields struct {
-		backendStore *backendstore.BackendStore
+		backendStore *s3backendstore.BackendStore
 	}
 
 	type args struct {
@@ -297,7 +297,7 @@ func TestDelete(t *testing.T) {
 	}{
 		"Invalid managed resource": {
 			fields: fields{
-				backendStore: backendstore.NewBackendStore(),
+				backendStore: s3backendstore.NewBackendStore(),
 			},
 			args: args{
 				mg: unexpectedItem,
@@ -308,7 +308,7 @@ func TestDelete(t *testing.T) {
 		},
 		"S3 backend reference does not exist": {
 			fields: fields{
-				backendStore: backendstore.NewBackendStore(),
+				backendStore: s3backendstore.NewBackendStore(),
 			},
 			args: args{
 				mg: &v1alpha1.Bucket{
@@ -327,7 +327,7 @@ func TestDelete(t *testing.T) {
 		},
 		"S3 backend not referenced and none exist": {
 			fields: fields{
-				backendStore: backendstore.NewBackendStore(),
+				backendStore: s3backendstore.NewBackendStore(),
 			},
 			args: args{
 				mg: &v1alpha1.Bucket{},

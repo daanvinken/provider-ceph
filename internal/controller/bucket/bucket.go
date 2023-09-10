@@ -18,6 +18,7 @@ package bucket
 
 import (
 	"context"
+	"github.com/linode/provider-ceph/internal/s3/s3backendstore"
 	"sync"
 	"time"
 
@@ -46,7 +47,6 @@ import (
 	"github.com/allegro/bigcache/v3"
 	"github.com/linode/provider-ceph/apis/s3/v1alpha1"
 	apisv1alpha1 "github.com/linode/provider-ceph/apis/v1alpha1"
-	"github.com/linode/provider-ceph/internal/backendstore"
 	"github.com/linode/provider-ceph/internal/features"
 	s3internal "github.com/linode/provider-ceph/internal/s3"
 	"github.com/linode/provider-ceph/pkg/utils"
@@ -95,7 +95,7 @@ var (
 )
 
 // Setup adds a controller that reconciles Bucket managed resources.
-func Setup(mgr ctrl.Manager, o controller.Options, s *backendstore.BackendStore) error {
+func Setup(mgr ctrl.Manager, o controller.Options, s *s3backendstore.BackendStore) error {
 	name := managed.ControllerName(v1alpha1.BucketGroupKind)
 
 	cps := []managed.ConnectionPublisher{managed.NewAPISecretPublisher(mgr.GetClient(), mgr.GetScheme())}
@@ -135,7 +135,7 @@ type connector struct {
 	kube         client.Client
 	usage        resource.Tracker
 	newServiceFn func(creds []byte) (interface{}, error)
-	backendStore *backendstore.BackendStore
+	backendStore *s3backendstore.BackendStore
 	log          logging.Logger
 }
 
@@ -160,7 +160,7 @@ func (c *connector) Connect(ctx context.Context, mg resource.Managed) (managed.E
 // external resource to ensure it reflects the managed resource's desired state.
 type external struct {
 	kubeClient   client.Client
-	backendStore *backendstore.BackendStore
+	backendStore *s3backendstore.BackendStore
 	log          logging.Logger
 }
 

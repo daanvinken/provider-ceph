@@ -20,6 +20,7 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
+	radosgw "github.com/linode/provider-ceph/apis/radosgw/v1alpha1"
 	s3 "github.com/linode/provider-ceph/apis/s3/v1alpha1"
 	v1alpha1 "github.com/linode/provider-ceph/apis/v1alpha1"
 )
@@ -28,6 +29,7 @@ func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		s3.SchemeBuilder.AddToScheme,
+		radosgw.SchemeBuilder.AddToScheme,
 		v1alpha1.SchemeBuilder.AddToScheme,
 	)
 }

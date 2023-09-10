@@ -1,4 +1,4 @@
-package backendstore
+package s3backendstore
 
 import (
 	"sync"

@@ -19,6 +19,8 @@ package main
 import (
 	"context"
 	"flag"
+	"github.com/linode/provider-ceph/internal/radosgw/radosgwbackendstore"
+	"github.com/linode/provider-ceph/internal/s3/s3backendstore"
 	"os"
 	"path/filepath"
 	"time"
@@ -41,7 +43,6 @@ import (
 
 	"github.com/linode/provider-ceph/apis"
 	"github.com/linode/provider-ceph/apis/v1alpha1"
-	"github.com/linode/provider-ceph/internal/backendstore"
 	ceph "github.com/linode/provider-ceph/internal/controller"
 	"github.com/linode/provider-ceph/internal/features"
 )
@@ -190,7 +191,8 @@ func main() {
 		log.Info("Alpha feature enabled", "flag", features.EnableAlphaManagementPolicies)
 	}
 
-	backendStore := backendstore.NewBackendStore()
-	kingpin.FatalIfError(ceph.Setup(mgr, o, backendStore), "Cannot setup Ceph controllers")
+	s3backendStore := s3backendstore.NewBackendStore()
+	radosgwbackendStore := radosgwbackendstore.NewBackendStore()
+	kingpin.FatalIfError(ceph.Setup(mgr, o, s3backendStore, radosgwbackendStore), "Cannot setup Ceph controllers")
 	kingpin.FatalIfError(mgr.Start(ctrl.SetupSignalHandler()), "Cannot start controller manager")
 }

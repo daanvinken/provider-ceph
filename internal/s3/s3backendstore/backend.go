@@ -1,4 +1,4 @@
-package backendstore
+package s3backendstore
 
 import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"

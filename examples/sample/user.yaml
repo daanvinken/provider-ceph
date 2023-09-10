@@ -1,0 +1,26 @@
+apiVersion: radosgw.ceph.crossplane.io/v1alpha1
+kind: CephUser
+metadata:
+  name: mytestuser2
+spec:
+  forProvider:
+    displayed_name: "My test user 2"
+    uid: testuser-crossplane-2
+    user_quota_max_objects: 1000
+    user_quota_max_size: 1000000000
+  providerConfigRef:
+    name: ceph-admin-cfg
+  providers:
+    - ceph-admin-cfg
+#  publishConnectionDetailsTo:
+#    configRef:
+#      name: my-secret-store-config
+#    metadata:
+#      annotations:
+#        my-annotation-key: my-annotation-value
+#      labels:
+#        my-label-key: my-label-value
+#  writeConnectionSecretToRef:
+#    name: my-secret
+#    namespace: my-namespace
+

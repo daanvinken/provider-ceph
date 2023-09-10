@@ -18,6 +18,7 @@ package providerconfig
 
 import (
 	"context"
+	"github.com/linode/provider-ceph/internal/s3/s3backendstore"
 
 	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
@@ -32,7 +33,6 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/providerconfig"
 
 	apisv1alpha1 "github.com/linode/provider-ceph/apis/v1alpha1"
-	"github.com/linode/provider-ceph/internal/backendstore"
 	s3internal "github.com/linode/provider-ceph/internal/s3"
 )
 
@@ -43,21 +43,21 @@ const (
 	errBackendNotStored = "s3 backend is not stored"
 )
 
-func newBackendStoreReconciler(k client.Client, o controller.Options, s *backendstore.BackendStore) *BackendStoreReconciler {
-	return &BackendStoreReconciler{
+func newS3BackendStoreReconciler(k client.Client, o controller.Options, s *s3backendstore.BackendStore) *S3BackendStoreReconciler {
+	return &S3BackendStoreReconciler{
 		kube:         k,
 		backendStore: s,
 		log:          o.Logger.WithValues("backend-store-controller", providerconfig.ControllerName(apisv1alpha1.ProviderConfigGroupKind)),
 	}
 }
 
-type BackendStoreReconciler struct {
+type S3BackendStoreReconciler struct {
 	kube         client.Client
-	backendStore *backendstore.BackendStore
+	backendStore *s3backendstore.BackendStore
 	log          logging.Logger
 }
 
-func (r *BackendStoreReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+func (r *S3BackendStoreReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	r.log.Info("Reconciling backend store", "name", req.Name)
 	providerConfig := &apisv1alpha1.ProviderConfig{}
 	if err := r.kube.Get(ctx, req.NamespacedName, providerConfig); err != nil {
@@ -76,7 +76,7 @@ func (r *BackendStoreReconciler) Reconcile(ctx context.Context, req ctrl.Request
 	return ctrl.Result{}, r.addOrUpdateBackend(ctx, providerConfig)
 }
 
-func (r *BackendStoreReconciler) addOrUpdateBackend(ctx context.Context, pc *apisv1alpha1.ProviderConfig) error {
+func (r *S3BackendStoreReconciler) addOrUpdateBackend(ctx context.Context, pc *apisv1alpha1.ProviderConfig) error {
 	secret, err := r.getProviderConfigSecret(ctx, pc.Spec.Credentials.SecretRef.Namespace, pc.Spec.Credentials.SecretRef.Name)
 	if err != nil {
 		return err
@@ -98,7 +98,7 @@ func (r *BackendStoreReconciler) addOrUpdateBackend(ctx context.Context, pc *api
 	return nil
 }
 
-func (r *BackendStoreReconciler) getProviderConfigSecret(ctx context.Context, secretNamespace, secretName string) (*corev1.Secret, error) {
+func (r *S3BackendStoreReconciler) getProviderConfigSecret(ctx context.Context, secretNamespace, secretName string) (*corev1.Secret, error) {
 	secret := &corev1.Secret{}
 	ns := types.NamespacedName{Namespace: secretNamespace, Name: secretName}
 	if err := r.kube.Get(ctx, ns, secret); err != nil {
@@ -108,7 +108,7 @@ func (r *BackendStoreReconciler) getProviderConfigSecret(ctx context.Context, se
 	return secret, nil
 }
 
-func (r *BackendStoreReconciler) setupWithManager(mgr ctrl.Manager) error {
+func (r *S3BackendStoreReconciler) setupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&apisv1alpha1.ProviderConfig{}).
 		Complete(r)
