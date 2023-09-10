@@ -139,14 +139,19 @@ func (in *CephUserParameters) DeepCopyInto(out *CephUserParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.UserQuotaMaxObjects != nil {
-		in, out := &in.UserQuotaMaxObjects, &out.UserQuotaMaxObjects
+	if in.UserQuotaMaxBuckets != nil {
+		in, out := &in.UserQuotaMaxBuckets, &out.UserQuotaMaxBuckets
 		*out = new(int)
 		**out = **in
 	}
-	if in.UserQuotaMaxSize != nil {
-		in, out := &in.UserQuotaMaxSize, &out.UserQuotaMaxSize
+	if in.UserQuotaMaxSizeKB != nil {
+		in, out := &in.UserQuotaMaxSizeKB, &out.UserQuotaMaxSizeKB
 		*out = new(int)
+		**out = **in
+	}
+	if in.UserQuotaMaxObjects != nil {
+		in, out := &in.UserQuotaMaxObjects, &out.UserQuotaMaxObjects
+		*out = new(int64)
 		**out = **in
 	}
 }

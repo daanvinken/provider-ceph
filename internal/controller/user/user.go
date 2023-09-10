@@ -606,8 +606,7 @@ func (c *external) Delete(ctx context.Context, mg resource.Managed) error {
 		g.Go(func() error {
 			var err error
 			for i := 0; i < s3internal.RequestRetries; i++ {
-				user := radosgw.GenerateCephUserInput(cephUser)
-				if err := cl.RemoveUser(ctx, *user); err != nil {
+				if err := radosgw.DeleteCephUser(ctx, cl, *cephUser); err != nil {
 					break
 				}
 

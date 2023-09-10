@@ -34,10 +34,13 @@ type CephUserParameters struct {
 	DisplayedName *string `json:"displayed_name"`
 
 	// The max number of objects allowed for this user
-	UserQuotaMaxObjects *int `json:"user_quota_max_objects"`
+	UserQuotaMaxBuckets *int `json:"user_quota_max_buckets"`
 
-	// The maximum size of objects for this user
-	UserQuotaMaxSize *int `json:"user_quota_max_size"`
+	// The maximum storage size (total) in MB
+	UserQuotaMaxSizeKB *int `json:"user_quota_max_size_kb"`
+
+	// The number of objects for this user
+	UserQuotaMaxObjects *int64 `json:"user_quota_max_objects"`
 }
 
 type BackendStatuses map[string]BackendStatus
