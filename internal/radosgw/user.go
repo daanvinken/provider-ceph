@@ -49,7 +49,7 @@ func DeleteCephUser(ctx context.Context, client *radosgw_admin.API, cephUser v1a
 	}
 
 	// Check if the user has any buckets
-	buckets, err := client.ListUsersBucketsWithStat(ctx, *cephUser.Spec.ForProvider.UID)
+	_, err = client.ListUsersBucketsWithStat(ctx, *cephUser.Spec.ForProvider.UID)
 	if err != nil {
 		log.Fatalf("Error listing buckets for user %s: %v", *cephUser.Spec.ForProvider.UID, err)
 	}
@@ -72,12 +72,12 @@ func DeleteCephUser(ctx context.Context, client *radosgw_admin.API, cephUser v1a
 	//	}
 	//	fmt.Printf("User %s deleted successfully.\n", user)
 	//}
-	if len(buckets) > 0 {
-		err = client.RemoveUser(ctx, *GenerateCephUserInput(&cephUser))
-		if err != nil {
-			log.Fatalf("Error deleting user %s: %v", *cephUser.Spec.ForProvider.UID, err)
-		}
+	//if len(buckets) > 0 {
+	err = client.RemoveUser(ctx, *GenerateCephUserInput(&cephUser))
+	if err != nil {
+		log.Fatalf("Error deleting user %s: %v", *cephUser.Spec.ForProvider.UID, err)
 	}
+	//}
 
 	return fmt.Errorf("User still has buckets, please clean up first.")
 

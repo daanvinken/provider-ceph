@@ -1,8 +1,12 @@
 apiVersion: s3.ceph.crossplane.io/v1alpha1
 kind: Bucket
 metadata:
-  name: test-bucket
+  name: test-bucket-1
 spec:
   providers:
-  - radosgw-admin-cfg
-  forProvider: {}
+    - ceph-admin-cfg
+  forProvider:
+    acl: private
+    objectLockEnabledForBucket: true
+  providerConfigRef:
+    name: ceph-admin-cfg

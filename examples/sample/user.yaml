@@ -1,14 +1,19 @@
 apiVersion: radosgw.ceph.crossplane.io/v1alpha1
 kind: CephUser
 metadata:
-  name: mytestuser7
+  name: mytestuser10
 spec:
   forProvider:
-    displayed_name: "My test user 7"
-    uid: testuser-crossplane-7
+    displayed_name: "My test user 10"
+    uid: testuser-crossplane-10
     user_quota_max_objects: 1000
     user_quota_max_size_kb: 1000000000
     user_quota_max_buckets: 1000
+#    secretConfig:
+#      type: vault
+#      vault_url: k8s
+#      kvVersion: kv1
+#      path: /PLATOFRM-=SECRETS/KV2.SFDSKFSDF/s3usercreds
   providerConfigRef:
     name: ceph-admin-cfg
   providers:

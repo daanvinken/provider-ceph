@@ -37,10 +37,10 @@ import (
 )
 
 const (
-	errCreateClient = "cannot create s3 client"
+	errCreateS3Client = "cannot create s3 client"
 	// #nosec
-	errGetSecret        = "cannot get Secret"
-	errBackendNotStored = "s3 backend is not stored"
+	errGetS3Secret        = "cannot get Secret"
+	errBackendS3NotStored = "s3 backend is not stored"
 )
 
 func newS3BackendStoreReconciler(k client.Client, o controller.Options, s *s3backendstore.BackendStore) *S3BackendStoreReconciler {
@@ -84,7 +84,7 @@ func (r *S3BackendStoreReconciler) addOrUpdateBackend(ctx context.Context, pc *a
 
 	s3client, err := s3internal.NewClient(ctx, secret.Data, &pc.Spec)
 	if err != nil {
-		return errors.Wrap(err, errCreateClient)
+		return errors.Wrap(err, errCreateS3Client)
 	}
 
 	var health apisv1alpha1.HealthStatus

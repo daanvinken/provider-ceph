@@ -193,7 +193,7 @@ func (r *HealthCheckReconciler) createHealthCheckBucket(ctx context.Context, pro
 func (r *HealthCheckReconciler) doHealthCheck(ctx context.Context, providerConfig *apisv1alpha1.ProviderConfig, hcBucket *v1alpha1.Bucket) error {
 	s3BackendClient := r.backendStore.GetBackendClient(providerConfig.Name)
 	if s3BackendClient == nil {
-		return errors.New(errBackendNotStored)
+		return errors.New(errBackendS3NotStored)
 	}
 
 	// Assume the status is Unhealthy until we can verify otherwise.
@@ -259,7 +259,7 @@ func (r *HealthCheckReconciler) bucketExistsRetry(ctx context.Context, s3Backend
 func (r *HealthCheckReconciler) bucketExists(ctx context.Context, s3BackendName, bucketName string) error {
 	s3BackendClient := r.backendStore.GetBackendClient(s3BackendName)
 	if s3BackendClient == nil {
-		return errors.New(errBackendNotStored)
+		return errors.New(errBackendS3NotStored)
 	}
 	_, err := s3BackendClient.HeadBucket(ctx, &s3.HeadBucketInput{Bucket: aws.String(bucketName)})
 	if err != nil {

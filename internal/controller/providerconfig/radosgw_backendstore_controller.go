@@ -37,10 +37,10 @@ import (
 )
 
 const (
-// errCreateClient = "cannot create radosgw client"
-// // #nosec
-// errGetSecret        = "cannot get Secret"
-// errBackendNotStored = "radosgw backend is not stored"
+	errCreateRadosgwClient = "cannot create radosgw client"
+	// #nosec
+	errGetRadosgwSecret        = "cannot get Secret"
+	errBackendRadosgwNotStored = "radosgw backend is not stored"
 )
 
 func newRadosgwBackendStoreReconciler(k client.Client, o controller.Options, s *radosgwbackendstore.BackendStore) *RadosgwBackendStoreReconciler {
@@ -58,7 +58,7 @@ type RadosgwBackendStoreReconciler struct {
 }
 
 func (r *RadosgwBackendStoreReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	r.log.Info("Reconciling  radosgw backend store", "name", req.Name)
+	r.log.Info("Reconciling radosgw backend store", "name", req.Name)
 	providerConfig := &apisv1alpha1.ProviderConfig{}
 	if err := r.kube.Get(ctx, req.NamespacedName, providerConfig); err != nil {
 		if kerrors.IsNotFound(err) {
@@ -84,7 +84,7 @@ func (r *RadosgwBackendStoreReconciler) addOrUpdateBackend(ctx context.Context, 
 
 	radosgwclient, err := radosgwinternal.NewClient(ctx, secret.Data, &pc.Spec)
 	if err != nil {
-		return errors.Wrap(err, errCreateClient)
+		return errors.Wrap(err, errCreateRadosgwClient)
 	}
 
 	var health apisv1alpha1.HealthStatus
